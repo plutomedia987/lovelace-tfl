@@ -1,0 +1,140 @@
+- resource: https://api.tfl.gov.uk/Line/Mode/tube,elizabeth-line/Status
+  payload: >
+    "{{ {
+      app_key: 'YOUR_API_KEY',
+      detail: 'true'
+    } | to_json }}"
+  scan_interval: 60
+  sensor:
+    - name: TFL Bakerloo Status
+      unique_id: 9fadb1cb-9187-4a1e-a49d-178b46ec119a
+      value_template: "{{ value_json[0]['lineStatuses'][0]['statusSeverityDescription'] }}"
+      json_attributes_path: $.0
+      json_attributes:
+        - name
+        - lineStatuses
+        - id
+      icon: >
+        {% from 'tfl_icon.jinja' import tfl_icon %}
+        {{ tfl_icon(value_json[0]['lineStatuses'][0]['statusSeverity']) }}
+    - name: TFL Central Status
+      unique_id: 8e063372-b3a1-4b00-8470-1ef1ad0c9750
+      value_template: "{{ value_json[1]['lineStatuses'][0]['statusSeverityDescription'] }}"
+      json_attributes_path: $.1
+      json_attributes:
+        - name
+        - lineStatuses
+        - id
+      icon: >
+        {% from 'tfl_icon.jinja' import tfl_icon %}
+        {{ tfl_icon(value_json[1]['lineStatuses'][0]['statusSeverity']) }}
+    - name: TFL Circle Status
+      unique_id: f09e01ee-3a10-492a-aab1-631f59a4b172
+      value_template: "{{ value_json[2]['lineStatuses'][0]['statusSeverityDescription'] }}"
+      json_attributes_path: $.2
+      json_attributes:
+        - name
+        - lineStatuses
+        - id
+      icon: >
+        {% from 'tfl_icon.jinja' import tfl_icon %}
+        {{ tfl_icon(value_json[2]['lineStatuses'][0]['statusSeverity']) }}
+    - name: TFL District Status
+      unique_id: 814e48aa-983b-4bf8-a3be-c6e628db787a
+      value_template: "{{ value_json[3]['lineStatuses'][0]['statusSeverityDescription'] }}"
+      json_attributes_path: $.3
+      json_attributes:
+        - name
+        - lineStatuses
+        - id
+      icon: >
+        {% from 'tfl_icon.jinja' import tfl_icon %}
+        {{ tfl_icon(value_json[3]['lineStatuses'][0]['statusSeverity']) }}
+    - name: TFL Elizabeth Line Status
+      unique_id: a05d0fb3-a344-4831-aaf5-bc890e566803
+      value_template: "{{ value_json[4]['lineStatuses'][0]['statusSeverityDescription'] }}"
+      json_attributes_path: $.4
+      json_attributes:
+        - name
+        - lineStatuses
+        - id
+      icon: >
+        {% from 'tfl_icon.jinja' import tfl_icon %}
+        {{ tfl_icon(value_json[4]['lineStatuses'][0]['statusSeverity']) }}
+    - name: TFL Hammersmith & City Status
+      unique_id: e054c9f3-a266-461e-93af-0492d9cf7e3d
+      value_template: "{{ value_json[5]['lineStatuses'][0]['statusSeverityDescription'] }}"
+      json_attributes_path: $.5
+      json_attributes:
+        - name
+        - lineStatuses
+        - id
+      icon: >
+        {% from 'tfl_icon.jinja' import tfl_icon %}
+        {{ tfl_icon(value_json[5]['lineStatuses'][0]['statusSeverity']) }}
+    - name: TFL Jubilee Status
+      unique_id: 7be0078f-6843-4725-a7ea-0c58e4d600f7
+      value_template: "{{ value_json[6]['lineStatuses'][0]['statusSeverityDescription'] }}"
+      json_attributes_path: $.6
+      json_attributes:
+        - name
+        - lineStatuses
+        - id
+      icon: >
+        {% from 'tfl_icon.jinja' import tfl_icon %}
+        {{ tfl_icon(value_json[6]['lineStatuses'][0]['statusSeverity']) }}
+    - name: TFL Metropolitan Status
+      unique_id: b73054d6-747c-4761-afd4-ac2e0bd446b5
+      value_template: "{{ value_json[7]['lineStatuses'][0]['statusSeverityDescription'] }}"
+      json_attributes_path: $.7
+      json_attributes:
+        - name
+        - lineStatuses
+        - id
+      icon: >
+        {% from 'tfl_icon.jinja' import tfl_icon %}
+        {{ tfl_icon(value_json[7]['lineStatuses'][0]['statusSeverity']) }}
+    - name: TFL Northern Status
+      unique_id: 14de8c2f-9671-4917-bff4-4d6ab47a33d4
+      value_template: "{{ value_json[8]['lineStatuses'][0]['statusSeverityDescription'] }}"
+      json_attributes_path: $.8
+      json_attributes:
+        - name
+        - lineStatuses
+        - id
+      icon: >
+        {% from 'tfl_icon.jinja' import tfl_icon %}
+        {{ tfl_icon(value_json[8]['lineStatuses'][0]['statusSeverity']) }}
+    - name: TFL Piccadilly Status
+      unique_id: e90b120e-b2c2-4af9-bb55-ddfd57a8b424
+      value_template: "{{ value_json[9]['lineStatuses'][0]['statusSeverityDescription'] }}"
+      json_attributes_path: $.9
+      json_attributes:
+        - name
+        - lineStatuses
+        - id
+      icon: >
+        {% from 'tfl_icon.jinja' import tfl_icon %}
+        {{ tfl_icon(value_json[9]['lineStatuses'][0]['statusSeverity']) }}
+    - name: TFL Victoria Status
+      unique_id: 386b626e-6732-4636-a797-55ceecb92365
+      value_template: "{{ value_json[10]['lineStatuses'][0]['statusSeverityDescription'] }}"
+      json_attributes_path: $.10
+      json_attributes:
+        - name
+        - lineStatuses
+        - id
+      icon: >
+        {% from 'tfl_icon.jinja' import tfl_icon %}
+        {{ tfl_icon(value_json[10]['lineStatuses'][0]['statusSeverity']) }}
+    - name: TFL Waterloo & City Status
+      unique_id: d5fae7fa-8293-42cf-9d8c-f6ff31db73fc
+      value_template: "{{ value_json[11]['lineStatuses'][0]['statusSeverityDescription'] }}"
+      json_attributes_path: $.11
+      json_attributes:
+        - name
+        - lineStatuses
+        - id
+      icon: >
+        {% from 'tfl_icon.jinja' import tfl_icon %}
+        {{ tfl_icon(value_json[11]['lineStatuses'][0]['statusSeverity']) }}
