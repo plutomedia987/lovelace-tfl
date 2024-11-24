@@ -190,7 +190,7 @@ class TFLCard extends LitElement {
         }
 
         .tfl-name{
-          display: inline;
+          display: block;
           font-weight: bold;
           white-space: nowrap;
         }
@@ -198,6 +198,22 @@ class TFLCard extends LitElement {
         .tfl-status{
           display: block;
           white-space: nowrap;
+        }
+
+        .tfl-full-details-divider{
+          width: 100%;
+        }
+
+        .tfl-full-details{
+          display: block;
+        }
+
+        .hide{
+          display: none;
+        }
+
+        .addPointer{
+          cursor: pointer;
         }
       `;
     }
@@ -253,6 +269,28 @@ class TFLCard extends LitElement {
       return new Object({ "icon": icon, "width": width });
     }
 
+    _handleLineClick(e) {
+
+      e.stopPropagation();
+
+      let components = e.composedPath();
+      let targetElement = components[0];
+      let lineElement = targetElement.closest(".tfl-line");
+      let detailsElement = lineElement.querySelectorAll(".tfl-full-details, .tfl-full-details-divider");
+
+      let addRemove = detailsElement[0].classList.contains("hide");
+
+      if (lineElement.classList.contains("addPointer")) {
+        for (let i = 0; i<detailsElement.length; i++){
+          if (addRemove) {
+            detailsElement[i].classList.remove("hide");
+          } else {
+            detailsElement[i].classList.add("hide");
+          }
+        }
+      }
+    }
+
     render() {
       if (!this._config || !this.hass) {
           return html``;
@@ -268,15 +306,18 @@ class TFLCard extends LitElement {
           if (Object.keys(entityObj).includes("attributes")) {
             let stateAttr = entityObj["attributes"];
 
-            let settings = this.getIcon(stateAttr.lineStatuses[0].statusSeverity);
+            let severity = stateAttr.lineStatuses[0].statusSeverity;
+            let settings = this.getIcon(severity);
 
             elements.push(
               html`
-                <div class="tfl-line ${stateAttr.id}">
+                <div class="tfl-line ${stateAttr.id} ${((severity != 10)?'addPointer':'')}" @click="${this._handleLineClick}">
                   <ha-icon style="width:${settings.width}px;" class="tfl-icon" icon="${settings.icon}"></ha-icon>
                   <div class="tfl-details">
                     <div class="tfl-name">${stateAttr.name}</div>
                     <div class="tfl-status">${stateAttr.lineStatuses[0].statusSeverityDescription}</div>
+                    <hr class="tfl-full-details-divider hide" />
+                    <div class="tfl-full-details hide">${stateAttr.lineStatuses[0].reason}</div>
                   </div>
                   <div class="tfl-icon" style="width:${settings.width}px;"></div>
                 </div>
