@@ -84,7 +84,7 @@ class TFLCard extends LitElement {
         }
 
         .central{
-          background-color: #FF25AD;
+          background-color: #FF251B;
           color: #FFFFFF;
         }
 
@@ -166,9 +166,10 @@ class TFLCard extends LitElement {
 
         .tfl-line{
           flex: 33%;
-          margin: 0.1vw;
+          margin: 1px;
           text-align: center;
-          border-radius: 0.3vw;
+          border-radius: 8px;
+          display: flex;
         }
 
         .tfl-line-name{
@@ -177,6 +178,15 @@ class TFLCard extends LitElement {
 
         .tfl-icon{
           display: inline;
+          align-self: center;
+          width: 24px;
+          padding: 3px;
+        }
+
+        .tfl-details{
+          display: flex;
+          flex-direction: column;
+          flex: 1;
         }
 
         .tfl-name{
@@ -190,6 +200,57 @@ class TFLCard extends LitElement {
           white-space: nowrap;
         }
       `;
+    }
+
+    getIcon(severity) {
+      let icon = "";
+      let width = 24;
+
+      switch (severity) {
+        case 0: // Special Service
+          icon = "mdi:star";
+          break;
+        case 1: // Closed
+        case 2: // Suspended
+        case 3: // Part Suspended
+        case 4: // Planned Closure
+        case 5: // Part Closure
+        case 11: // Part Closed
+        case 16: // Not Runnning
+        case 20: // Service Closed
+          icon = "mdi:close-circle-outline";
+          break;
+        case 6: // Severe Delays
+        case 7: // Reduced Service
+        case 9: // Minor Delays
+        case 17: // Issues Reported
+          icon = "mdi:alert-circle-outline";
+          break;
+        case 8: // Bus Service
+          icon = "mdi:bus-alert";
+          break;
+        case 10: // Good Service
+        case 18: // No Issues
+          width = 0;
+          break;
+        case 12: // Exit only
+          icon = "mdi:exit-run";
+          break;
+        case 13: // No Step Free Access
+          icon = "mdi:stairs";
+          break;
+        case 14: // Change of Frequency
+          icon = "mdi:archive-clock";
+          break;
+        case 15: // Diverted
+          icon = "mdi:swap-horizontal";
+          break;
+        case 19: // Information
+          icon = "mdi:information-outline";
+          break;
+      }
+
+      return new Object({ "icon": icon, "width": width });
     }
 
     render() {
@@ -207,21 +268,17 @@ class TFLCard extends LitElement {
           if (Object.keys(entityObj).includes("attributes")) {
             let stateAttr = entityObj["attributes"];
 
-            let icon = "";
-            if (stateAttr.lineStatuses[0].statusSeverity == 10) {
-              // icon = "mdi:check";
-            } else {
-              icon = "mdi:alert-circle-outline";
-            }
+            let settings = this.getIcon(stateAttr.lineStatuses[0].statusSeverity);
 
             elements.push(
               html`
                 <div class="tfl-line ${stateAttr.id}">
-                  <div class="tfl-line-name">
-                    <ha-icon class="tfl-icon" icon="${icon}"></ha-icon>
+                  <ha-icon style="width:${settings.width}px;" class="tfl-icon" icon="${settings.icon}"></ha-icon>
+                  <div class="tfl-details">
                     <div class="tfl-name">${stateAttr.name}</div>
+                    <div class="tfl-status">${stateAttr.lineStatuses[0].statusSeverityDescription}</div>
                   </div>
-                  <div class="tfl-status">${stateAttr.lineStatuses[0].statusSeverityDescription}</div>
+                  <div class="tfl-icon" style="width:${settings.width}px;"></div>
                 </div>
               `
             );
