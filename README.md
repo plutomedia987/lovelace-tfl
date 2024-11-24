@@ -12,17 +12,19 @@ Clicking on the line will show you any details if available
 # Installation
 ## HACS (Easiest)
 Add this as a custom reposity in to HACS
+
 [Add to HACS](https://my.home-assistant.io/redirect/hacs_repository/?owner=plutomedia987&repository=lovelace-tfl&category=dashboard)
 
 ## Manual
-Copy the lovelace-tfl.js in to the www folder
-Go to the dashboard settings
-Click on the 3 dots (top right) -> resources
-Click "Add resource" bottom right
-Add the following javascript rosource "/local/lovelace-tfl.js"
+1. Copy the lovelace-tfl.js in to the www folder
+2. Go to the dashboard settings
+3. Click on the 3 dots (top right) -> resources
+4. Click "Add resource" bottom right
+5. Add the following javascript rosource "/local/lovelace-tfl.js"
 
 ## Setup
 To set up the card make sure the rest APIs are running. My current rest file is included in this repo and should be included under "rest:"
+
 Add a custom card with the following settings:
 
 ```yaml
