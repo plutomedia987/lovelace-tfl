@@ -1,4 +1,4 @@
-# lovelace-tfl
+# TFL Tube Status Card
 TFL card to display the tube statuses. 
 The YAML file in the repo should be added to your config for now until I get an integration running
 
@@ -9,7 +9,7 @@ Clicking on the line shill show you any details if available
 
 ![image](https://github.com/user-attachments/assets/73f86d3c-fcaa-47be-a8d8-fbe218547397)
 
-# Setup
+## Setup
 To set up the card make sure the rest APIs are running.
 Add a custom card with the following settings:
 
