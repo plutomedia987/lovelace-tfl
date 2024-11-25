@@ -329,7 +329,10 @@ class TFLCard extends LitElement {
 
       return html`
         <ha-card>
-          <h1 class="card-header">TFL Status</h1>
+          <h1 class="card-header">
+            <ha-icon icon="mdi:subway"></ha-icon>
+            <span>TFL Status</span>
+          </h1>
           <div class="card-content">
             <div class="container">
               ${elements}
